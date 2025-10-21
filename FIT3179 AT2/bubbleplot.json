@@ -1,0 +1,59 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 800,
+  "autosize": {"type": "fit", "contains": "padding"},
+  "data": { "url": "data/victoriafunding_combined.csv" },
+  "transform": [
+    { "calculate": "toNumber(datum.Start_Year)", "as": "StartYear" },
+    { "calculate": "toNumber(replace(datum.Total_Expenditure, ',', ''))", "as": "TotalExp" },
+    { "calculate": "toNumber(replace(datum.Expenditure_Per_Student, ',', ''))", "as": "PerStudent" },
+    { "filter": "datum['School sector'] == 'Government' || datum['School sector'] == 'All non-government' || datum['School sector'] == 'All'" }
+  ],
+  "mark": { "type": "circle", "opacity": 0.8, "stroke": "white", "strokeWidth": 0.5 },
+  "encoding": {
+    "x": {
+      "field": "PerStudent",
+      "type": "quantitative",
+      "title": "Expenditure per student ($)",
+      "axis": { "format": "~s", "labelFontSize": 12, "titleFontSize": 13 }
+    },
+    "y": {
+      "field": "TotalExp",
+      "type": "quantitative",
+      "title": "Total expenditure ($)",
+      "axis": { "format": "~s", "labelFontSize": 12, "titleFontSize": 13 }
+    },
+    "size": {
+      "field": "TotalExp",
+      "type": "quantitative",
+      "title": "Bubble size = total expenditure",
+      "scale": { "range": [100, 2000] }
+    },
+    "color": {
+      "field": "School sector",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Government", "All non-government", "All"],
+        "range": ["#2563eb", "#16a34a", "#64748b"]
+      },
+      "legend": { "title": "Sector" }
+    },
+    "tooltip": [
+      { "field": "Financial year", "title": "Year" },
+      { "field": "School sector", "title": "Sector" },
+      { "field": "TotalExp", "title": "Total ($)", "format": "," },
+      { "field": "PerStudent", "title": "Per student ($)", "format": "," }
+    ]
+  },
+  "title": {
+    "text": "Funding Comparison by Sector: Total vs Per‑Student Expenditure",
+    "fontSize": 18,
+    "anchor": "start"
+  },
+  "config": {
+    "view": { "stroke": "#e2e8f0" },
+    "font": "system-ui, Segoe UI, Roboto, Arial, sans-serif",
+    "legend": { "labelFontSize": 12, "titleFontSize": 13 }
+  }
+}
