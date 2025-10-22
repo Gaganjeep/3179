@@ -5,7 +5,7 @@
   "height": 560,
 
   "data": {
-    "url": "..Data/vic_lga.geojson",
+    "url": "Data/vic_lga.geojson",
     "format": { "type": "json", "property": "features" }
   },
 
@@ -13,7 +13,7 @@
     {
       "lookup": "properties.LGA_NAME",
       "from": {
-        "data": { "url": "..Data/schools_by_lga_clean.csv" },
+        "data": { "url": "Data/schools_by_lga_clean.csv" },
         "key": "LGA_Name",
         "fields": ["School_Count"]
       }
