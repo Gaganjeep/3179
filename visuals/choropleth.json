@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Schools per LGA (GeoJSON base, CSV lookup).",
+  "width": "container",
+  "height": 560,
+
+  "data": {
+    "url": "data/vic_lga.geojson",
+    "format": { "type": "json", "property": "features" }
+  },
+
+  "transform": [
+    {
+      "lookup": "properties.LGA_NAME",
+      "from": {
+        "data": { "url": "data/schools_by_lga_clean.csv" },
+        "key": "LGA_Name",
+        "fields": ["School_Count"]
+      }
+    },
+    { "calculate": "isValid(datum.School_Count) ? toNumber(datum.School_Count) : 0", "as": "Schools" }
+  ],
+
+  "mark": { "type": "geoshape", "stroke": "#475569", "strokeWidth": 0.6 },
+
+  "encoding": {
+    "color": { "field": "Schools", "type": "quantitative", "title": "Number of Schools", "scale": { "scheme": "blues" } },
+    "tooltip": [
+      { "field": "properties.LGA_NAME", "type": "nominal", "title": "LGA" },
+      { "field": "Schools", "type": "quantitative", "title": "Schools" }
+    ]
+  },
+
+  "projection": { "type": "mercator" },
+  "config": { "view": { "stroke": "transparent" } }
+}

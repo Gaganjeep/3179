@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Side-by-side lollipop chart of Attendance by Year Level for Major Cities vs Remote with a year slider.",
+  "width": "container",
+  "height": 320,
+  "autosize": { "type": "fit", "contains": "padding" },
+
+  "data": { "url": "data/remotevsmajor.csv", "format": { "type": "csv" } },
+
+  "params": [
+    {
+      "name": "selectedYear",
+      "value": 2022,
+      "bind": { "input": "range", "min": 2016, "max": 2022, "step": 1, "name": "Select Year: " }
+    }
+  ],
+
+  "transform": [
+    { "filter": "datum['Calendar year'] == selectedYear" },
+    { "filter": "datum['Geolocation'] == 'Major Cities' || datum['Geolocation'] == 'Remote'" },
+    { "calculate": "toNumber(datum['Attendance Rate'])", "as": "AttendanceNum" }
+  ],
+
+  "encoding": {
+    "x": {
+      "field": "School Year Level",
+      "type": "ordinal",
+      "title": "School Year Level",
+      "sort": ["Year 1","Year 2","Year 3","Year 4","Year 5","Year 6","Year 7","Year 8","Year 9","Year 10"],
+      "axis": { "labelFontSize": 12, "titleFontSize": 13 }
+    },
+    "xOffset": { "field": "Geolocation" },
+    "y": {
+      "field": "AttendanceNum",
+      "type": "quantitative",
+      "title": "Attendance Rate (%)",
+      "scale": { "domain": [0, 100] },
+      "axis": { "labelFontSize": 12, "titleFontSize": 13 }
+    },
+    "color": {
+      "field": "Geolocation",
+      "type": "nominal",
+      "title": "Location",
+      "scale": {
+        "domain": ["Major Cities","Remote"],
+        "range": ["#2563eb","#f43f5e"]
+      },
+      "legend": { "orient": "bottom", "columns": 3 }
+    },
+    "tooltip": [
+      { "field": "School Year Level", "type": "ordinal", "title": "Year Level" },
+      { "field": "Geolocation", "type": "nominal", "title": "Location" },
+      { "field": "Calendar year", "type": "ordinal", "title": "Year" },
+      { "field": "AttendanceNum", "type": "quantitative", "title": "Attendance Rate (%)", "format": ".2f" }
+    ]
+  },
+
+  "layer": [
+    {
+      "mark": { "type": "bar", "cornerRadiusEnd": 0 },
+      "encoding": {
+        "size": { "value": 3 },
+        "y2": { "value": 0 }
+      }
+    },
+    {
+      "mark": { "type": "point", "shape": "circle", "filled": true, "size": 100 }
+    }
+  ],
+
+  "config": {
+    "view": { "stroke": "#e2e8f0" },
+    "font": "system-ui, Segoe UI, Roboto, Arial, sans-serif",
+    "legend": { "labelFontSize": 12, "titleFontSize": 13, "orient": "bottom", "columns": 3 },
+    "axis": { "labelFontSize": 11, "titleFontSize": 12, "labelLimit": 120, "grid": true }
+  },
+
+  "padding": { "left": 8, "right": 8, "top": 8, "bottom": 10 }
+}

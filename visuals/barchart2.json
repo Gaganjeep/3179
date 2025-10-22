@@ -1,0 +1,75 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "data/funding_2022_vic.csv"
+  },
+  "width": "container",
+  "height": 420,
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "sector",
+      "type": "nominal",
+      "sort": [
+        "Government",
+        "All non-government",
+        "All"
+      ],
+      "title": null
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "value",
+      "type": "quantitative",
+      "title": "Total funding (A$ billions)",
+      "axis": {
+        "format": "~s"
+      }
+    },
+    "color": {
+      "field": "source",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Australian Government",
+          "State and territory governments"
+        ],
+        "range": [
+          "#0B5EA8",
+          "#00AEEF"
+        ]
+      },
+      "legend": {
+        "title": "",
+        "orient": "bottom",
+        "columns": 3
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    },
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "font": "system-ui, Segoe UI, Roboto, Arial, sans-serif",
+    "legend": {
+      "orient": "bottom",
+      "columns": 3,
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "padding": {
+    "left": 8,
+    "right": 8,
+    "top": 8,
+    "bottom": 10
+  }
+}

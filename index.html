@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Victorian Schools — Government vs Non-Government</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f4f7;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+      line-height: 1.5;
+      font-size: 0.92rem;
+    }
+
+    .container {
+      background-color: white;
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      color: #0f172a;
+    }
+
+    .chart {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .small-chart {
+      width: 45%;
+      float: left;
+      margin-right: 20px;
+    }
+
+    p.caption {
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    .clear {
+      clear: both;
+    }
+
+    footer {
+      color: #555;
+      font-size: 0.9rem;
+      border-top: 1px solid #ddd;
+      margin-top: 40px;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+  
+    <h1>Victorian Schools — Government vs Non-Government</h1>
+
+    <p>This webpage explores the Victorian School distribution between Government and Non-Government schools and attempts to see if there is some discrepancy that exists that sources online suggest. The data is all collected from government resources so it reliable and can provide accurate insights.</p>
+
+  
+    <div id="vis-map" class="chart"></div>
+
+    
+    <div class="small-chart">
+      <div id="vis-donut"></div>
+      <p class="caption">Proportion of schools by sector.</p>
+    </div>
+
+    <p>The map above and the donut chart to the left show the distribution of schools across Victoria. Government schools make up around 70% of all schools, followed by Catholic and Independent schools. Most schools are concentrated in Melbourne and nearby inner regions, while rural and remote areas have far fewer. This highlights ongoing challenges in accessibility and resource distribution for students living outside major population centres.
+
+The spatial pattern also suggests that regional communities may have limited educational options and longer travel distances, which can impact student engagement and attendance. These differences underscore the importance of targeted investment in rural education to ensure all students have equal access to quality schooling</p>
+    <div class="clear"></div>
+
+    <div id="vis-lga-choropleth" class="chart"></div>
+    <p class="caption">Number of schools per Local Government Area (LGA). Hover to see details.</p>
+
+    
+    <h2>Funding by Sector</h2>
+    <div id="vis-barchart2" class="chart"></div>
+    <p>Resources online suggest that Government Schools are much less funded when in comparison to Non-Government Schools. However, from the graph shown below we can see that government school far more funding than non-government schools. There does however exist a discrepancy between the funding recieved from the Australian government vs State Governments. Non-Government schoools
+  tend to recieve more funding from the Australian government while Government schools recieve more from the State government.
+    </p>
+   
+    <h2>Funding Over Time</h2>
+    <div id="vis-line" class="chart"></div>
+    <p class="caption">Trends in per-student funding across years.</p>
+    <p>Comparing funding trends over time for both government and non-government schools reveals a substantial increase in education expenditure across Australia. Combined contributions from the Australian Government and state governments have risen from approximately $20 billion to over $41 billion, reflecting a strong policy emphasis on strengthening the school system.
+
+Over the past 12 years, funding for both sectors has nearly doubled, aligning with population growth of around five million people during the same period. This rise in investment supports the expanding student population and highlights the ongoing commitment to ensuring adequate resources and infrastructure for Australia’s growing education needs.
+    </p>
+
+  
+    <h2>Total vs Per-Student Funding</h2>
+    <div id="vis-bubble" class="chart"></div>
+    <p class="caption">Each bubble represents a sector-year combination.</p>
+
+    >
+    <div style="float: right; width: 50%;">
+      <div id="vis-major2022" class="chart"></div>
+    </div>
+    <h2>Attendance in Non-Government Schools</h2>
+    <p>Attendance by year level for schools located in major cities of Victoria.</p>
+    <div class="clear"></div>
+
+    
+    <div style="float: left; width: 50%;">
+      <div id="vis-remote2022" class="chart"></div>
+    </div>
+    <h2>Attendance in Government Schools</h2>
+    <p>Compare attendance rates in remote regions with those in remote areas.</p>
+    <div class="clear"></div>
+
+   
+    <h2>Key Insights</h2>
+    <p></p>
+
+  
+    <footer>
+      <p><strong>Author:</strong> Gagandeep Singh Bachhal 31556671<br>
+         <strong>Data Source:</strong> Victorian Government Education Datasets<br>
+         <strong>Year:</strong> 2025</p>
+    </footer>
+  </div>
+
+
+  <script>
+
+    vegaEmbed("#vis-map", "visuals/schoolsmap.json");
+    vegaEmbed("#vis-donut", "visuals/barchart.json");
+    vegaEmbed("#vis-barchart2", "visuals/barchart2.json");
+    vegaEmbed("#vis-line", "visuals/linegraph.json");
+    vegaEmbed("#vis-bubble", "visuals/bubbleplot.json");
+    vegaEmbed("#vis-major2022", "visuals/major2022.json");
+    vegaEmbed("#vis-remote2022", "visuals/remote2022.json");
+    vegaEmbed("#vis-lga-choropleth", "visuals/choropleth.json");
+  </script>
+</body>
+</html>

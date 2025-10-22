@@ -1,0 +1,118 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 420,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "data": {
+    "url": "data/victoriafunding_combined.csv"
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.Start_Year)",
+      "as": "StartYear"
+    },
+    {
+      "calculate": "toNumber(replace(datum.Total_Expenditure, ',', ''))",
+      "as": "TotalExp"
+    },
+    {
+      "filter": "datum['School sector'] == 'Government' || datum['School sector'] == 'All non-government' || datum['School sector'] == 'All'"
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone",
+    "opacity": 0.9
+  },
+  "encoding": {
+    "x": {
+      "field": "StartYear",
+      "type": "ordinal",
+      "title": "Financial year (start)",
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 12,
+        "titleFontSize": 13
+      }
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "TotalExp",
+      "type": "quantitative",
+      "title": "Total expenditure ($)",
+      "axis": {
+        "format": "~s",
+        "labelFontSize": 12,
+        "titleFontSize": 13
+      },
+      "stack": "zero"
+    },
+    "color": {
+      "field": "School sector",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Government",
+          "All non-government",
+          "All"
+        ],
+        "range": [
+          "#1E88E5",
+          "#8E24AA",
+          "#FFB300"
+        ]
+      },
+      "legend": {
+        "title": "School Sector",
+        "orient": "bottom",
+        "columns": 3
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Financial year",
+        "title": "Year"
+      },
+      {
+        "field": "School sector",
+        "title": "Sector"
+      },
+      {
+        "field": "TotalExp",
+        "title": "Total expenditure ($)",
+        "format": ","
+      }
+    ]
+  },
+  "title": {
+    "text": "Total Expenditure by Sector Over Time",
+    "fontSize": 18,
+    "anchor": "start"
+  },
+  "config": {
+    "view": {
+      "stroke": "#e2e8f0"
+    },
+    "font": "system-ui, Segoe UI, Roboto, Arial, sans-serif",
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "orient": "bottom",
+      "columns": 3
+    },
+    "axis": {
+      "labelFontSize": 11,
+      "titleFontSize": 12,
+      "labelLimit": 120
+    }
+  },
+  "padding": {
+    "left": 8,
+    "right": 8,
+    "top": 8,
+    "bottom": 10
+  }
+}

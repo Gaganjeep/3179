@@ -1,0 +1,95 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 300,
+  "height": 300,
+  "data": {
+    "url": "data/school_sector_counts.csv"
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "Number_of_Schools",
+          "as": "Total"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.Number_of_Schools / datum.Total",
+      "as": "Pct"
+    }
+  ],
+  "mark": {
+    "type": "arc",
+    "innerRadius": 0,
+    "outerRadius": 100
+  },
+  "encoding": {
+    "theta": {
+      "field": "Number_of_Schools",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "Education_Sector",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Government",
+          "Catholic",
+          "Independent"
+        ],
+        "range": [
+          "#1E88E5",
+          "#FFB300",
+          "#8E24AA"
+        ]
+      },
+      "legend": {
+        "title": "Sector",
+        "orient": "bottom",
+        "columns": 3
+      },
+      "title": "School Sector"
+    },
+    "tooltip": [
+      {
+        "field": "Education_Sector",
+        "title": "Sector"
+      },
+      {
+        "field": "Number_of_Schools",
+        "title": "Count"
+      },
+      {
+        "field": "Pct",
+        "title": "Share",
+        "format": ".1%"
+      }
+    ]
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "padding": {
+    "left": 8,
+    "right": 8,
+    "top": 8,
+    "bottom": 10
+  },
+  "config": {
+    "font": "system-ui, Segoe UI, Roboto, Arial, sans-serif",
+    "axis": {
+      "labelFontSize": 11,
+      "titleFontSize": 12,
+      "labelLimit": 120
+    },
+    "legend": {
+      "orient": "bottom",
+      "columns": 3,
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    }
+  }
+}
