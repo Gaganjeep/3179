@@ -7,7 +7,7 @@
     "contains": "padding"
   },
   "data": {
-    "url": "data/victoriafunding_combined.csv"
+    "url": "..Data/victoriafunding_combined.csv"
   },
   "transform": [
     {

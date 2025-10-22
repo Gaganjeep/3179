@@ -59,7 +59,7 @@
     },
     {
       "data": {
-        "url": "data/VicSchoolLocations_2024.csv"
+        "url": "..Data/VicSchoolLocations_2024.csv"
       },
       "transform": [
         {
