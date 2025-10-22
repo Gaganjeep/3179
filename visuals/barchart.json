@@ -3,7 +3,7 @@
   "width": 300,
   "height": 300,
   "data": {
-    "url": "Data/school_sector_counts.csv"
+    "url": "https://gaganjeep.github.io/3179/Data/school_sector_counts.csv"
   },
   "transform": [
     {
